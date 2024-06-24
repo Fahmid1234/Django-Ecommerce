@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{% static 'css/process_order.css' %}">
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <div class = "invoice-wrapper" id = "print-area">
+            <div class = "invoice">
+                <div class = "invoice-container">
+                    <div class = "invoice-head">
+                        <div class = "invoice-head-top">
+                            <div class = "invoice-head-top-left text-start">
+                                <h3>ElectroDokan</h3>
+                            </div>
+                            <div class = "invoice-head-top-right text-end">
+                                <h3>Invoice</h3>
+                            </div>
+                        </div>
+                        <div class = "hr"></div>
+                        <div class = "invoice-head-middle">
+                            <div class = "invoice-head-middle-left text-start">
+                                <p><span class = "text-bold">Date</span>: {{date}}</p>
+                            </div>
+                            <div class = "invoice-head-middle-right text-end">
+                                <p><spanf class = "text-bold">Invoice No:</span>{{invoice}}</p>
+                            </div>
+                        </div>
+                        <div class = "hr"></div>
+                        <div class = "invoice-head-bottom">
+                            <div class = "invoice-head-bottom-left">
+                                <ul>
+                                    <li class = 'text-bold'>Invoiced To:</li>
+                                    <li>{{user}}</li>
+                                    {% comment %} <li>15 Hodges Mews, High Wycombe</li>
+                                    <li>HP12 3JL</li>
+                                    <li>United Kingdom</li> {% endcomment %}
+                                </ul>
+                            </div>
+                            <div class = "invoice-head-bottom-right">
+                                <ul class = "text-end">
+                                    <li class = 'text-bold'>Shipped To:</li>
+                                    <li>{{name}}</li>
+                                    <li>{{address1}}</li>
+                                    <li>{{address2}}</li>
+                                    <li>{{email}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class = "overflow-view">
+                        <div class = "invoice-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td class = "text-bold">Product Image</td>
+                                        <td class = "text-bold">Product Title</td>
+                                        <td class = "text-bold">Quantity</td>
+                                        <td class = "text-bold">Action</td>
+                                        <td class = "text-bold">Subtotal</td>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cart in cart %}
+                                    <tr>
+                                        <td><img src="{{ cart.product.image.url }}" class="h-25 w-25" /></td>
+                                        <td>{{ cart.product.title }}</td>
+                                        <td>{{ cart.quantity }}</td>
+                                        <td>X</td>
+                                        <td class = "text-end">{{cart.product.price}}</td>
+                                    </tr>
+                                    
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class = "invoice-body-bottom">
+                                <div class = "invoice-body-info-item border-bottom">
+                                    <div class = "info-item-td text-end text-bold">Sub Total:</div>
+                                    <div class = "info-item-td text-end">৳{{amount}}</div>
+                                </div>
+                                <div class = "invoice-body-info-item border-bottom">
+                                    <div class = "info-item-td text-end text-bold">Shipping Charge:</div>
+                                    <div class = "info-item-td text-end">৳100.00</div>
+                                </div>
+                                <div class = "invoice-body-info-item">
+                                    <div class = "info-item-td text-end text-bold">Total:</div>
+                                    <div class = "info-item-td text-end">৳{{total}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "invoice-foot text-center">
+                        <p><span class = "text-bold text-center">NOTE:&nbsp;</span>This is computer generated receipt and does not require physical signature.</p>
+
+                        <div class = "invoice-btns">
+                            <button type = "button" class = "invoice-btn" onclick="printInvoice()">
+                                <span>
+                                    <i class="fa-solid fa-print"></i>
+                                </span>
+                                <span>Print</span>
+                            </button>
+                            <button type = "button" class = "invoice-btn">
+                                <span>
+                                    <i class="fa-solid fa-download"></i>
+                                </span>
+                                <span>Download</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include "footer.html" %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+       
+        <script>
+            function printInvoice(){
+                window.print();
+            }
+        </script>
+    </body>
+</html>

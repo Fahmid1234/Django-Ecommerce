@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+    <style>
+        #carouselExampleIndicators{
+            height: 500px;
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 25px;
+            background: #000;
+            margin-bottom: 25px;
+            
+        }
+        .carousel-inner img{
+          width: 600px;
+          height:500px;
+        }
+        a{
+          text-decoration: none;
+          color: #000;
+        }
+        
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-sm-2">
+          <table class="table" border="2">
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% comment %} {% for product in product %}
+              <tr>
+                <th scope="row">{{product.category}}</th>
+              </tr>
+              {% endfor %}  {% endcomment %}
+              <tr>
+                <td><a href="{% url 'fan' %}">Fan</a></td>
+              </tr>
+              <tr>
+                <td><a href="{% url 'powerbank' %}">Power Bank</a></td>
+              </tr>
+              <tr>
+                <td><a href="{% url 'smartwatch' %}">Smartwatch</a></td>
+              </tr>
+              
+              
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-10">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <a href="#"><img src="{% static 'images/Baseus.Adaman.2000mAh.BDSHOP.jpg.1_nHHmsKr.jpg' %}" class="d-block w-100" alt="..."></a>
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'images/Haylou-watch-2-pro-Silver.webp' %}" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'images/WGP-Mini-UPS-5-12-12.jpg' %}" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <hr>
+      
+      <section class="py-5">
+        <h3>Smartwatch</h3>
+        <div class="container px-4 px-lg-5 mt-5">
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for sw in sw %}
+              <div class="col mb-5">
+                <div class="card h-100">
+                  
+                  <!-- Product image -->
+                  <a href="{% url 'productdetail' sw.id %}"><img class="card-img-top" src="{{ sw.image.url }}" alt="..." /></a><hr />
+                  <!-- Product details -->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Product name -->
+                      <a href="{% url 'productdetail' sw.id %}" style="text-decoration: none;"><h5 class="fw-bolder" style="color: black; ">{{ sw.title }}</h5></a>
+                      <!-- Product price -->
+                      ৳{{ sw.price }}
+                    </div>
+                  </div>
+                  <!-- Product actions -->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                      <a class="btn btn-outline-dark mt-auto" href="{% url 'productdetail' sw.id %}">Product Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+
+        <hr>
+
+        <h3>Power bank</h3>
+        <div class="container px-4 px-lg-5 mt-5">
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for pb in pb %}
+              <div class="col mb-5">
+                
+                <div class="card h-100">
+                  
+                  <!-- Product image -->
+                  <a href="{% url 'productdetail' pb.id %}"><img class="card-img-top" src="{{ pb.image.url }}" alt="..." /></a><hr />
+                  <!-- Product details -->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Product name -->
+                      <a href="{% url 'productdetail' pb.id %}" style="text-decoration: none;"><h5 class="fw-bolder" style="color: black; ">{{ pb.title }}</h5></a>
+                      <!-- Product price -->
+                      ৳{{ pb.price }}
+                    </div>
+                  </div>
+                  <!-- Product actions -->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                      <a class="btn btn-outline-dark mt-auto" href="{% url 'productdetail' pb.id %}">Product Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <hr>
+
+        <h3>Fan</h3>
+        <div class="container px-4 px-lg-5 mt-5">
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for fan in fan %}
+              <div class="col mb-5">
+                
+                <div class="card h-100">
+                  
+                  <!-- Product image -->
+                  <a href="{% url 'productdetail' fan.id %}"><img class="card-img-top" src="{{ fan.image.url }}" alt="..." /></a><hr />
+                  <!-- Product details -->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Product name -->
+                      <a href="{% url 'productdetail' fan.id %}" style="text-decoration: none;"><h5 class="fw-bolder" style="color: black; ">{{ fan.title }}</h5></a>
+                      <!-- Product price -->
+                      ৳{{ fan.price }}
+                    </div>
+                  </div>
+                  <!-- Product actions -->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                      <a class="btn btn-outline-dark mt-auto" href="{% url 'productdetail' fan.id %}">Product Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <hr>
+      </section>
+
+     
+
+    </div>
+
+
+
+    {% include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
