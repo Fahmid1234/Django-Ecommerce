@@ -7,7 +7,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'description', 'price', 'category', 'image']
 
 @admin.register(Cart)
-class ProductAdmin(admin.ModelAdmin):
+class CartAdmin(admin.ModelAdmin):
     list_display = ['user', 'product', 'quantity']
 
 @admin.register(Carts)

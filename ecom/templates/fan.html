@@ -20,7 +20,6 @@
             <a href="{% url 'productdetail' product.id %}"><img class="card-img-top" src="{{ product.image.url }}" alt="..." /></a><hr />
             <!-- Product details -->
             <div class="card-body p-4">
-              <div class="text-center">
                 <!-- Product name -->
                 <a href="{% url 'productdetail' product.id %}" style="text-decoration: none;"><h5 class="fw-bolder" style="color: black; ">{{ product.title }}</h5></a>
                 <!-- Product price -->

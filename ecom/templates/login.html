@@ -2,7 +2,6 @@
 
 {% block content %}
     <div class="container">
-      <div class="container">
         <form action="{% url 'login' %}" method="POST" class="form shadow p-3 mb-5 bg-body-tertiary rounded">
           {% csrf_token %}
           <div class="mb-3">
@@ -15,7 +14,6 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-      </div>
     </div>
 
 {% endblock %}
